@@ -12,8 +12,12 @@
 			startDate : "2014-04-01",
 			endDate : "2014-04-30",		
 			timePeriod : "month",
-			withActivity : 0,
-			unanswered : 0,
+			withActivity : {
+				total : 0
+			},
+			unanswered :  {
+				total : 0
+			},
 			topAskers : {
 				items  : []
 			},
@@ -57,6 +61,26 @@
 		document.querySelector("#questions-with-activity").innerHTML = questionsWithActivity;
 		document.querySelector("#unanswered-questions").innerHTML = unansweredQuestions;
 		document.querySelector("#questions-results").innerHTML = percentageUnanswered;
+
+		// Unanswered
+		if (type === "unanswered") {
+			var unanswered = document.querySelector("#unanswered"),
+				allUnanswered = questions.unanswered.items;
+			if (allUnanswered) {
+				var totalUnanswereds = (allUnanswered.length > 10)? 10 : allUnanswered.length,
+					unansweredResults = "<ul>";
+
+				for (var i=0,l=totalUnanswereds, question; i<l; i++) {
+					question = allUnanswered[i];
+					unansweredResults += "<li>" + 
+									'<a href="' + question["link"] + '">' +
+									question["title"] + "</a><br>" + 
+									"<small>" + question["tags"].toString(", ") + "</small></li>";
+				}
+				unansweredResults += "</ul>";
+				unanswered.innerHTML = unansweredResults;
+			}
+		}
 
 		// Top answerers
 		if (type === "topAnswerers") {
@@ -148,6 +172,7 @@
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4) {
+				//console.log("Type: " + type);
 				//console.log(xhr.response);
 				var response = xhr.response,
 					quotaRemaining = response["quota_remaining"];
@@ -174,13 +199,13 @@
 
 	function getQuestionsWithActivity () {
 		// All questions for a certain time period - https://api.stackexchange.com/docs/search
-		getItems("withActivity", "https://api.stackexchange.com/2.2/search?fromdate=" + questions.startDate + "&todate=" + questions.	endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=total");
+		getItems("withActivity", "https://api.stackexchange.com/2.2/search?fromdate=" + questions.startDate + "&todate=" + questions.	endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=!9WA((MBIa");
 	}
 
 	function getUnansweredQuestions () {
 		// All questions without an answer for a certain time period - https://api.stackexchange.com/docs/unanswered-questions
 		// "At this time a question must have at least one upvoted answer to be considered answered"
-		getItems("unanswered", "https://api.stackexchange.com/2.2/questions/unanswered?fromdate=" + questions.startDate + "&todate=" + questions.endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=total");
+		getItems("unanswered", "https://api.stackexchange.com/2.2/questions/unanswered?fromdate=" + questions.startDate + "&todate=" + questions.endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=!9WA((MBIa");
 	}
 
 	function topAnswerers () {
