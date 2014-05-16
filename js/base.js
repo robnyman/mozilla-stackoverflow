@@ -58,6 +58,27 @@
 		document.querySelector("#unanswered-questions").innerHTML = unansweredQuestions;
 		document.querySelector("#questions-results").innerHTML = percentageUnanswered;
 
+		// Top answerers
+		if (type === "topAnswerers") {
+			var topAnswerers = document.querySelector("#top-answerers"),
+				allTopAnswerers = questions.topAnswerers.items;
+			if (allTopAnswerers) {
+				var totalTopAnswerers = (allTopAnswerers.length > 5)? 5 : allTopAnswerers.length,
+					topAnswerersResults = "<ul>";
+
+				for (var i=0,l=totalTopAnswerers, user; i<l; i++) {
+					user = allTopAnswerers[i];
+					topAnswerersResults += "<li>" + 
+										'<a href="' + user.user["link"] + '">' +
+										'<img src="' + user.user["profile_image"] + '" alt="">' + 
+										user.user["display_name"] + "</a>" + ", Score: " + user["score"] + " (" + 
+										user["post_count"] + " question" + ((user["post_count"] > 1)? "s" : "") + ")</li>";
+				};
+				topAnswerersResults += "</ul>";
+				topAnswerers.innerHTML = topAnswerersResults;
+			}
+		}
+
 		// Top askers
 		if (type === "topAskers") {
 			var topAskers = document.querySelector("#top-askers"),
@@ -162,6 +183,10 @@
 		getItems("unanswered", "https://api.stackexchange.com/2.2/questions/unanswered?fromdate=" + questions.startDate + "&todate=" + questions.endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=total");
 	}
 
+	function topAnswerers () {
+		getItems("topAnswerers", "https://api.stackexchange.com/2.2/tags/" + questions.tag + "/top-answerers/" + questions.timePeriod + "?site=stackoverflow");
+	}
+
 	function topAskers () {
 		getItems("topAskers", "https://api.stackexchange.com/2.2/tags/" + questions.tag + "/top-askers/" + questions.timePeriod + "?site=stackoverflow");
 	}
@@ -183,6 +208,7 @@
 		// Get reports
 		getQuestionsWithActivity();
 		getUnansweredQuestions();
+		topAnswerers();
 		topAskers();
 		faq();
 		relatedTags();

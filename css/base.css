@@ -94,7 +94,7 @@ td {
 
 #results section {
   float: left;
-  width: 320px;
+  width: 340px;
   border-top: 1px solid #000;
   margin: 20px 0;
   padding: 20px 0;
@@ -102,15 +102,17 @@ td {
 
 #results section:nth-child(odd) {
   clear: both;
-  margin-right: 100px;
+  margin-right: 80px;
 }
 
+#top-answerers li,
 #top-askers li,
 #faq li,
 #related-tags li {
   margin-bottom: 5px;
 }
 
+#top-answerers img,
 #top-askers img {
   width: 32px;
   margin-right: 5px;
