@@ -9,8 +9,8 @@
 		daysinMonth = 31,
 		questions = {
 			tag : "firefox-os",
-			startDate : "2014-04-01",
-			endDate : "2014-04-30",		
+			startDate : "2014-05-01",
+			endDate : "2014-05-31",		
 			timePeriod : "month",
 			withActivity : {
 				total : 0
@@ -57,13 +57,22 @@
 	function addResults (type) {
 		var questionsWithActivity = questions.withActivity.total,
 			unansweredQuestions = questions.unanswered.total,
-			percentageUnanswered = (questionsWithActivity > 0)? parseFloat((unansweredQuestions/questionsWithActivity) * 100).toFixed(2) : "100";
-		document.querySelector("#questions-with-activity").innerHTML = questionsWithActivity;
-		document.querySelector("#unanswered-questions").innerHTML = unansweredQuestions;
-		document.querySelector("#questions-results").innerHTML = percentageUnanswered;
+			percentageUnanswered = (questionsWithActivity > 0)? parseFloat((unansweredQuestions/questionsWithActivity) * 100).toFixed(2) : "100";			
+
+		// With activity
+		if (type === "withActivity") {
+			document.querySelector("#questions-with-activity").innerHTML = questionsWithActivity;
+		}
+
+		// With activity or unanswered, to compare results
+		if (type === "withActivity" || type === "unanswered") {
+			document.querySelector("#questions-results").innerHTML = percentageUnanswered;
+		}
 
 		// Unanswered
 		if (type === "unanswered") {
+			document.querySelector("#unanswered-questions").innerHTML = unansweredQuestions;
+
 			var unanswered = document.querySelector("#unanswered"),
 				allUnanswered = questions.unanswered.items;
 			if (allUnanswered) {
