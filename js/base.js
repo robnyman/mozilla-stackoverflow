@@ -207,22 +207,22 @@
 	};
 
 	function getQuestionsWithActivity () {
-		// All questions for a certain time period - https://api.stackexchange.com/docs/search
-		getItems("withActivity", "https://api.stackexchange.com/2.2/search?fromdate=" + questions.startDate + "&todate=" + questions.	endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=!9WA((MBIa");
+		// All questions for a certain time period - http://api.stackexchange.com/docs/search
+		getItems("withActivity", "http://api.stackexchange.com/2.2/search?fromdate=" + questions.startDate + "&todate=" + questions.	endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=!9WA((MBIa");
 	}
 
 	function getUnansweredQuestions () {
-		// All questions without an answer for a certain time period - https://api.stackexchange.com/docs/unanswered-questions
+		// All questions without an answer for a certain time period - http://api.stackexchange.com/docs/unanswered-questions
 		// "At this time a question must have at least one upvoted answer to be considered answered"
-		getItems("unanswered", "https://api.stackexchange.com/2.2/questions/unanswered?fromdate=" + questions.startDate + "&todate=" + questions.endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=!9WA((MBIa");
+		getItems("unanswered", "http://api.stackexchange.com/2.2/questions/unanswered?fromdate=" + questions.startDate + "&todate=" + questions.endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=!9WA((MBIa");
 	}
 
 	function topAnswerers () {
-		getItems("topAnswerers", "https://api.stackexchange.com/2.2/tags/" + questions.tag + "/top-answerers/" + questions.timePeriod + "?site=stackoverflow");
+		getItems("topAnswerers", "http://api.stackexchange.com/2.2/tags/" + questions.tag + "/top-answerers/" + questions.timePeriod + "?site=stackoverflow");
 	}
 
 	function topAskers () {
-		getItems("topAskers", "https://api.stackexchange.com/2.2/tags/" + questions.tag + "/top-askers/" + questions.timePeriod + "?site=stackoverflow");
+		getItems("topAskers", "http://api.stackexchange.com/2.2/tags/" + questions.tag + "/top-askers/" + questions.timePeriod + "?site=stackoverflow");
 	}
 
 	function faq () {
