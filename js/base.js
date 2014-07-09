@@ -1,5 +1,8 @@
 "use strict";
 (function() {
+  var constants = {
+    'STACK_API_ROOT': 'https://api.stackexchange.com/2.2/'
+  };
 	var tag = document.querySelector("#stack-overflow-tag"),
 		startDate = document.querySelector("#start-date"),
 		endDate = document.querySelector("#end-date"),
@@ -208,29 +211,29 @@
 
 	function getQuestionsWithActivity () {
 		// All questions for a certain time period - http://api.stackexchange.com/docs/search
-		getItems("withActivity", "http://api.stackexchange.com/2.2/search?fromdate=" + questions.startDate + "&todate=" + questions.	endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=!9WA((MBIa");
+		getItems("withActivity", constants.STACK_API_ROOT + "search?fromdate=" + questions.startDate + "&todate=" + questions.	endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=!9WA((MBIa");
 	}
 
 	function getUnansweredQuestions () {
 		// All questions without an answer for a certain time period - http://api.stackexchange.com/docs/unanswered-questions
 		// "At this time a question must have at least one upvoted answer to be considered answered"
-		getItems("unanswered", "http://api.stackexchange.com/2.2/questions/unanswered?fromdate=" + questions.startDate + "&todate=" + questions.endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=!9WA((MBIa");
+		getItems("unanswered", constants.STACK_API_ROOT + "questions/unanswered?fromdate=" + questions.startDate + "&todate=" + questions.endDate + "&order=desc&sort=activity&tagged=" + questions.tag + "&site=stackoverflow&filter=!9WA((MBIa");
 	}
 
 	function topAnswerers () {
-		getItems("topAnswerers", "http://api.stackexchange.com/2.2/tags/" + questions.tag + "/top-answerers/" + questions.timePeriod + "?site=stackoverflow");
+		getItems("topAnswerers", constants.STACK_API_ROOT + "tags/" + questions.tag + "/top-answerers/" + questions.timePeriod + "?site=stackoverflow");
 	}
 
 	function topAskers () {
-		getItems("topAskers", "http://api.stackexchange.com/2.2/tags/" + questions.tag + "/top-askers/" + questions.timePeriod + "?site=stackoverflow");
+		getItems("topAskers", constants.STACK_API_ROOT + "tags/" + questions.tag + "/top-askers/" + questions.timePeriod + "?site=stackoverflow");
 	}
 
 	function faq () {
-		getItems("faq", "http://api.stackexchange.com/2.2/tags/" + questions.tag + "/faq?site=stackoverflow");
+		getItems("faq", constants.STACK_API_ROOT + "tags/" + questions.tag + "/faq?site=stackoverflow");
 	}
 
 	function relatedTags () {
-		getItems("relatedTags", "http://api.stackexchange.com/2.2/tags/" + questions.tag + "/related?site=stackoverflow");
+		getItems("relatedTags", constants.STACK_API_ROOT + "tags/" + questions.tag + "/related?site=stackoverflow");
 	}
 
 	function checkReports () {
